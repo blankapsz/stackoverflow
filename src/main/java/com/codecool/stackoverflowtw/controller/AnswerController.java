@@ -22,14 +22,12 @@ public class AnswerController {
 
     @GetMapping("/question/{id}")
     public List<AnswerDTO> getAnswersByQuestionID(@PathVariable int id){
-        List<AnswerDTO> answers = answerService.getAnswersByQuestionID(id);
-        return answers;
+        return answerService.getAnswersByQuestionID(id);
     }
 
     @PostMapping("/")
     public int addNewAnswer(@RequestBody NewAnswerDTO answerDTO) throws SQLException {
-        int resp = answerService.addNewAnswer(answerDTO);
-        return resp;
+        return answerService.addNewAnswer(answerDTO);
     }
     @DeleteMapping("/{id}")
     public boolean deleteAnswerById(@PathVariable int id){

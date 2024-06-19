@@ -6,6 +6,7 @@ const Registration = () => {
     const [showRegistration, setShowRegistration] = useState(false);
 
     function handleSubmit(e) {
+        e.preventDefault()
         const data = { username, password };
         fetch('/api/user/', {
             method: 'POST',

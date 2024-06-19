@@ -13,6 +13,7 @@ const Questions = () => {
                 })
                 .then((response) => {
                     setDisplayQuestions(response);
+                    console.log(response);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -20,22 +21,23 @@ const Questions = () => {
         },
         []);
     const handleDelete = (id) => {
+        console.log("handledelete")
         fetch(`/api/question/${id}`, {
             method: 'DELETE'
         })
             .then(() => {
-                setDisplayQuestions(prevQuestions => prevQuestions.filter(todo => todo._id !== id));
-                window.location.reload();
+                setDisplayQuestions(prevQuestions => prevQuestions.filter(todo => todo.id !== id));
             })
             .catch(error => console.error(error));
     }
 
-    const handleSort = (title) => {
-        fetch(`/api/question/sorted/${title}`)
+    const handleSort = (criteria) => {
+        fetch(`/api/question/sorted/${criteria}`)
             .then((response) => {
                 return response.json();
             })
             .then((response) => {
+                setDisplayQuestions([])
                 setSortedQuestion(response);
                 setShowSorted(!showSorted);
             })
@@ -51,10 +53,12 @@ const Questions = () => {
             <button onClick={() => handleSort("answerCount")}>Hottest Topics</button>
             {showSorted ? (
                 <div>
-                    {sortedQuestions.map((question, index) => (
+                    {sortedQuestions && sortedQuestions.map((question, index) => (
                         <div key={index}>
                             <h3>{question.title}</h3>
-                            <text>{question.description}</text>
+                            <h5>{question.description}</h5>
+                            <h5>Answers: {question.answerCount}</h5>
+                            <h5>Created: {question.created}</h5>
                             <button onClick={() => handleDelete(question.id)}>Delete</button>
                             <Link to={`/answer/question/${question.id}`} >
                                 <button>Show answers</button>
@@ -68,7 +72,6 @@ const Questions = () => {
                         <div key={index}>
                             <h3>{question.title}</h3>
                             <h5>{question.description}</h5>
-
                             <button onClick={() => handleDelete(question.id)}>Delete</button>
                             <Link to={`/answer/question/${question.id}`} >
                             <button>Show answers</button>

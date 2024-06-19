@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Users = () => {
     const [displayUsers, setDisplayUsers] = useState([]);
@@ -23,7 +23,7 @@ const Users = () => {
         })
             .then(() => {
                 setDisplayUsers(prevUsers => prevUsers.filter(user => user.id !== id));
-                window.location.reload();
+               // window.location.reload();
             })
             .catch(error => console.error(error));
     }

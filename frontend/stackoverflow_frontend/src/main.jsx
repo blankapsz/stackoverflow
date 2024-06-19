@@ -2,13 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
-import Questions from './Components/QuestionForm.jsx'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Answers from './Components/Answers.jsx'
 import Users from "./Components/Users.jsx";
 
 const router = createBrowserRouter([
-    //const { id } = useParams()
     {
         path: "/",
         element: <App/>

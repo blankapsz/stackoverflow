@@ -49,7 +49,6 @@ const Login = () => {
             <button className="LoginButton" onClick={handleLoginButton}>
                 {showLogin ? 'Back' : 'Log in'}
             </button>
-            {(loggedUser !== null) ? (<h1 className="loggedUser">Hello, {loggedUser}!</h1>) : (<h1 className="loggedUser">Hello Foreigner!</h1>)}
             {showLogin && (
                 <form onSubmit={handleSubmit}>
                     <label>Name:

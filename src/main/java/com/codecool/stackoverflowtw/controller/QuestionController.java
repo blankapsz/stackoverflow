@@ -46,10 +46,7 @@ public class QuestionController {
         questionService.addNewQuestion(question);
         return 1;
     }
-    @PostMapping("/increment/{id}")
-    public void incrementAmountOfAnswers(@PathVariable int id) throws SQLException {
-        questionService.incrementAmountOfAnswers(id);
-    }
+
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
 //        TODO

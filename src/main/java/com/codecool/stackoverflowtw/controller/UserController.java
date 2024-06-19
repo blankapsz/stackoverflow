@@ -36,13 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
-    public boolean authenticateUser(@RequestBody NewUserDTO user) throws SQLException {
+    public boolean authenticateUser(@RequestBody NewUserDTO user){
         return userService.authenticateUser(user);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteUserById(@PathVariable int id) {
-        userService.deleteUserById(id);
-        return true;
+        return userService.deleteUserById(id);
     }
 }

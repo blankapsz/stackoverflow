@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,54 +25,50 @@ public class QuestionService {
         List<Question> sortedByAnswer =  questionsDAO.getAllQuestionsSortedByAnswer();
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : sortedByAnswer){
-            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), LocalDateTime.now()));
+            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), question.created(), question.answerCount()));
         }
         return questionDTOS;
     }
+
     public List<QuestionDTO> getAllQuestionsSorted() {
         List<Question> sortedQuestions = questionsDAO.getAllQuestionsSorted();
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : sortedQuestions){
-            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), LocalDateTime.now()));
+            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), question.created(), question.answerCount()));
         }
         return questionDTOS;
     }
+
     public List<QuestionDTO> getAllQuestionsSortedByDate() {
         List<Question> sortedByTime = questionsDAO.getAllQuestionsSortedByDate();
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : sortedByTime){
-            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), LocalDateTime.now()));
+            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), question.created(), question.answerCount()));
         }
         return questionDTOS;
     }
+
     public List<QuestionDTO> getAllQuestions() {
         List<Question> allQuestions = questionsDAO.getAllQuestions();
-        // TODO convert data to QuestionDTO
+
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : allQuestions){
-            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), LocalDateTime.now()));
+            questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.description(), question.created(), question.answerCount()));
         }
         return questionDTOS;
     }
 
     public Question getQuestionById(int id) {
-        // TODO
         QuestionDTO questionDTO = questionsDAO.getQuestionById(id);
-        return new Question(questionDTO.id(), questionDTO.title(), questionDTO.description());
+        return new Question(questionDTO.id(), questionDTO.title(), questionDTO.description(),questionDTO.created(), questionDTO.answerCount());
     }
 
     public boolean deleteQuestionById(int id) {
-        // TODO
-        questionsDAO.deleteQuestionById(id);
-        return true;
+        return questionsDAO.deleteQuestionById(id);
     }
 
     public void addNewQuestion(NewQuestionDTO question) throws SQLException {
        questionsDAO.addNewQuestion(question);
-    }
-
-    public void incrementAmountOfAnswers(int id) {
-        questionsDAO.incrementAmountOfAnswers(id);
     }
 
 }

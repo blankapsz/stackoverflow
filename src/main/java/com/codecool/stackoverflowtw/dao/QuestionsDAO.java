@@ -18,7 +18,6 @@ public interface QuestionsDAO {
 
     List<Question> getAllQuestionsSortedByDate();
 
-    void incrementAmountOfAnswers(int id);
-
     List<Question> getAllQuestionsSortedByAnswer();
+
 }

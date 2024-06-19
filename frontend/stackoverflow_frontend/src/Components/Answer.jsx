@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const Answer = ({answer, index}) => {
     
     return <div>

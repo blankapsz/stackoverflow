@@ -24,7 +24,7 @@ public class DbConnector {
             return conn;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("From dbConnector" + e.getMessage());
         }
 
         return null;

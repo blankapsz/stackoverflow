@@ -33,13 +33,11 @@ public class AnswerService {
 
     public int addNewAnswer(NewAnswerDTO answer) throws SQLException {
         Answer modelAnswer = new Answer(0, answer.message(), LocalDateTime.now(), answer.questionId());
-        int resp = answerDAO.addNewAnswer(modelAnswer);
-        return resp;
+        return answerDAO.addNewAnswer(modelAnswer);
     }
 
     public List<AnswerDTO> getAnswersByQuestionID(int id) {
         List<Answer> answers = answerDAO.getAnswersByQuestionID(id);
-        System.out.println("hhelz");
         List<AnswerDTO> answerDTOS = new ArrayList<>();
         for (Answer answer : answers) {
             answerDTOS.add(new AnswerDTO(answer.id(), answer.message(), answer.submission(), answer.questionId()));

@@ -4,7 +4,6 @@ import com.codecool.stackoverflowtw.controller.dto.NewQuestionDTO;
 import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
 import com.codecool.stackoverflowtw.dao.model.Question;
 import com.codecool.stackoverflowtw.service.DbConnector;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -21,12 +20,11 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public List<Question> getAllQuestions() {
-        String sql = "SELECT id,title, description from questions";
+        String sql = "SELECT id,title, description, created, answer_count from questions";
         return getQuestions(sql);
     }
+
     public int addNewQuestion(NewQuestionDTO question) {
-        //todo sql add to db
-        // SQL query to insert a new question into the database
         String sql = "INSERT INTO questions (title, description, created) VALUES (?, ?, ?)";
 
         Connection databaseConnection;
@@ -66,7 +64,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public QuestionDTO getQuestionById(int id) {
-        //todo: this
         String sql = "SELECT * FROM questions WHERE id = ?";
         QuestionDTO questionDTO = null;
 
@@ -80,8 +77,10 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
                 int questionId = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
+                LocalDateTime created = rs.getTimestamp("created").toLocalDateTime();
+                int answerCount = rs.getInt("answer_count");
 
-                questionDTO = new QuestionDTO(questionId, title, description, LocalDateTime.now());
+                questionDTO = new QuestionDTO(questionId, title, description, created, answerCount);
             }
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -91,53 +90,58 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public List<Question> getAllQuestionsSorted() {
-        String sql = "SELECT id,title, description from questions ORDER BY title ASC";
+        String sql = "SELECT id,title, description, created, answer_count from questions ORDER BY title ASC";
         return getQuestions(sql);
     }
 
     private List<Question> getQuestions(String sql) {
         List<Question> questions = new ArrayList<>();
+
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
-            ResultSet rs = pstmt.executeQuery();
+             ResultSet rs = pstmt.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            System.out.println("Columns in the ResultSet:");
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.println(rsmd.getColumnName(i));
+            }
 
             while (rs.next()){
                 int id = rs.getInt("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
+                Timestamp timestamp = rs.getTimestamp("created");
+                LocalDateTime created = null;
+                if (timestamp != null) {
+                    created = timestamp.toLocalDateTime();
+                }
+                int answerCount = rs.getInt("answer_count");
 
-                Question question = new Question(id, title, description);
+                Question question = new Question(id, title, description, created, answerCount);
                 questions.add(question);
             }
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("From questionsDAOJdbc: " + e.getMessage());
         }
         return questions;
     }
 
     @Override
     public List<Question> getAllQuestionsSortedByDate() {
-        String sql = "SELECT id,title, description from questions ORDER BY created DESC";
+        String sql = "SELECT id,title,created,description, answer_count from questions ORDER BY created DESC";
         return getQuestions(sql);
     }
 
     @Override
-    public void incrementAmountOfAnswers(int id) {
-        String sql = "UPDATE questions SET answer_count = answer_count + 1 WHERE id = ?";
-
-        try (Connection conn = dbConnector.getConnection();
-        PreparedStatement pstmnt = conn.prepareStatement(sql)){
-            pstmnt.setInt(1, id);
-
-            pstmnt.executeUpdate();
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @Override
     public List<Question> getAllQuestionsSortedByAnswer() {
-        String sql = "SELECT id, title, description, answer_count FROM questions ORDER BY answer_count DESC";
+        String sql = """
+                SELECT q.id, q.title, q.description,q.created, COUNT(a.id) AS answer_count
+                FROM questions q
+                LEFT JOIN answers a ON q.id = a.question_id
+                GROUP BY q.id, q.title, q.description
+                ORDER BY answer_count DESC""";
         return getQuestions(sql);
     }
 

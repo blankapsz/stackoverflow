@@ -27,7 +27,7 @@ ALTER TABLE questions
 ADD answer_count int DEFAULT 0;
 
 
-UPDATE questions SET answer_count = answer_count + 1 WHERE id = 15
+UPDATE questions SET answer_count = answer_count + 1 WHERE id = 15;
 
 UPDATE questions SET answer_count = answer_count + 1 WHERE id = 14;
 ALTER SEQUENCE answers_id_seq RESTART WITH 1;

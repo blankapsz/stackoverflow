@@ -15,13 +15,6 @@ public class User {
         this.created = created;
     }
 
-    public User(int id, String username, String password, LocalDateTime created) {
-        this.username = username;
-        this.id = id;
-        this.password = password;
-        this.created = LocalDateTime.now();
-    }
-
     public String getUsername() {
         return username;
     }

@@ -24,7 +24,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         return getQuestions(sql);
     }
 
-    public int addNewQuestion(NewQuestionDTO question) {
+    public void addNewQuestion(NewQuestionDTO question) {
         String sql = "INSERT INTO questions (title, description, created) VALUES (?, ?, ?)";
 
         Connection databaseConnection;
@@ -42,7 +42,6 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return 200;
     }
 
     @Override

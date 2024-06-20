@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -58,9 +56,8 @@ public class QuestionService {
         return questionDTOS;
     }
 
-    public Question getQuestionById(int id) {
-        QuestionDTO questionDTO = questionsDAO.getQuestionById(id);
-        return new Question(questionDTO.id(), questionDTO.title(), questionDTO.description(),questionDTO.created(), questionDTO.answerCount());
+    public QuestionDTO getQuestionById(int id) {
+        return questionsDAO.getQuestionById(id);
     }
 
     public boolean deleteQuestionById(int id) {

@@ -26,7 +26,7 @@ const Questions = () => {
             method: 'DELETE'
         })
             .then(() => {
-                setDisplayQuestions(prevQuestions => prevQuestions.filter(todo => todo.id !== id));
+                setDisplayQuestions(prevQuestions => prevQuestions.filter(question => question.id !== id));
             })
             .catch(error => console.error(error));
     }

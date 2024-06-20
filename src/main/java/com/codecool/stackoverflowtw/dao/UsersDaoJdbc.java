@@ -1,7 +1,6 @@
 package com.codecool.stackoverflowtw.dao;
 
 import com.codecool.stackoverflowtw.controller.dto.NewUserDTO;
-import com.codecool.stackoverflowtw.controller.dto.UserDTO;
 import com.codecool.stackoverflowtw.dao.model.User;
 import com.codecool.stackoverflowtw.service.DbConnector;
 
@@ -61,7 +60,7 @@ public class UsersDaoJdbc implements UsersDAO {
     }
 
     @Override
-    public int addNewUser(NewUserDTO user) {
+    public void addNewUser(NewUserDTO user) {
         String sql = "INSERT INTO users (username, password, created) VALUES (?, ?, ?)";
 
         try (Connection connection = dbConnector.getConnection();
@@ -73,7 +72,6 @@ public class UsersDaoJdbc implements UsersDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return 200;
     }
 
 

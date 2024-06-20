@@ -21,16 +21,6 @@ public class AnswerService {
         this.answerDAO = answerDAO;
     }
 
-    public List<AnswerDTO> getAllAnswers() {
-        throw new UnsupportedOperationException();
-    }
-
-    public AnswerDTO getAnswerById(int id) {
-        throw new UnsupportedOperationException();
-    }
-
-
-
     public int addNewAnswer(NewAnswerDTO answer) throws SQLException {
         Answer modelAnswer = new Answer(0, answer.message(), LocalDateTime.now(), answer.questionId());
         return answerDAO.addNewAnswer(modelAnswer);
@@ -46,8 +36,7 @@ public class AnswerService {
     }
 
     public boolean deleteAnswerById(int id) {
-        answerDAO.deleteAnswer(id);
-        return true;
+        return answerDAO.deleteAnswer(id);
     }
 
 }

@@ -29,10 +29,15 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public int addNewUser(@RequestBody NewUserDTO user) throws SQLException {
         userService.addNewUser(user);
         return 200;
+    }
+
+    @PatchMapping("/{id}")
+    public boolean updateUser(@RequestBody UserDTO user){
+        return userService.updateUser(user);
     }
 
     @PostMapping("/authenticate")

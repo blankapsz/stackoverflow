@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-const Registration = () => {
+const Registration = ({ showLogin, setShowLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showRegistration, setShowRegistration] = useState(false);
+    const [userExistsWarning, setUserExistsWarning] = useState(false);
 
     function handleSubmit(e) {
         e.preventDefault()
         const data = { username, password };
-        fetch('/api/user/', {
+        fetch('/api/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,16 +18,38 @@ const Registration = () => {
         })
             .then(response => response.json())
             .then(response => {
-                console.log(response);
+                if(response.ok){
+                  console.log(response);
+                  setPassword("")
+                  setUsername("")
+                  setUserExistsWarning(false)
+                } else {
+                  console.log(response);
+                  setUserExistsWarning(true)
+                  setPassword("")
+                  setUsername("")
+                }
             })
             .catch(err => {
-                console.error(err);
+                setUserExistsWarning(true)
+                console.error("Registration error: ",err);
             });
     }
 
     const handleRegistrationButton = () => {
         setShowRegistration(!showRegistration);
+        setShowLogin(!showLogin)
     };
+
+    const handleUsernameChange = (e) => {
+      setUsername(e.target.value);
+      setUserExistsWarning(false)
+    }
+
+    const handlePasswordChange = (e) => {
+      setPassword(e.target.value);
+      setUserExistsWarning(false)
+    }
 
     return (
         <div className="Registration">
@@ -36,16 +59,24 @@ const Registration = () => {
             {showRegistration && (
                 <form onSubmit={handleSubmit}>
                     <label>Name:
-                        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                        <input type="text" value={username} onChange={handleUsernameChange} />
                     </label>
                     <label>Password:
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        <input type="password" value={password} onChange={handlePasswordChange} />
                     </label>
                     <button type='submit'>Register</button>
+                    {userExistsWarning ?
+                      <h5 className={"warning"}>Username in use!</h5>
+                      :
+                      <h5></h5>
+                    }
                 </form>
+
             )}
         </div>
     );
+
+
 }
 
 export default Registration;

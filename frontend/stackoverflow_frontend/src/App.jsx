@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import './App.css'
 import Questions from './Components/QuestionForm';
-import Registration from './Components/Registration.jsx';
 import Login from "./Components/Login.jsx";
 import {Link} from "react-router-dom";
 
@@ -34,7 +33,6 @@ function App() {
                 <button className={"online"}>Who is online</button>
             </Link>
           <h1>STAKKOWERFLOV</h1>
-            <Registration />
             <Login />
             <form onSubmit={handleSubmit}>
                 <label className={"titleLabel"}>Title:

@@ -17,30 +17,6 @@ public class AnswersDaoJdbc implements AnswerDAO {
     }
 
     @Override
-    public List<Answer> getAllAnswers() {
-        List<Answer> answers = new ArrayList<>();
-        String sql = "SELECT * FROM answers";
-
-        Connection databaseConnection;
-        Statement statement;
-        ResultSet resultSet;
-
-        try {
-            databaseConnection = dbConnector.getConnection();
-            statement = databaseConnection.createStatement();
-            resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-                answers.add(new Answer(resultSet.getInt("id"), resultSet.getString("message"), resultSet.getTimestamp("submission").toLocalDateTime(), resultSet.getInt("question_id")));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return answers;
-    }
-
-    @Override
     public List<Answer> getAnswersByQuestionID(int id) {
         List<Answer> answers = new ArrayList<>();
         String sql = "SELECT * FROM answers WHERE question_id = ?";
@@ -86,24 +62,6 @@ public class AnswersDaoJdbc implements AnswerDAO {
     }
 
     @Override
-    public int updateAnswer(Answer answer) {
-        String sql = "UPDATE answers SET message = ? WHERE id = ?";
-
-        Connection databaseConnection;
-        PreparedStatement preparedStatement;
-
-        try {
-            databaseConnection = dbConnector.getConnection();
-            preparedStatement = databaseConnection.prepareStatement(sql);
-            preparedStatement.setString(1, answer.message());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 200;
-    }
-
-    @Override
     public boolean deleteAnswer(int id) {
         String sql = "DELETE FROM answers WHERE id = ?";
 
@@ -119,10 +77,5 @@ public class AnswersDaoJdbc implements AnswerDAO {
             System.out.println(e.getMessage());
             return false;
         }
-    }
-
-    @Override
-    public boolean deleteAll() {
-        return false;
     }
 }

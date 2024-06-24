@@ -37,7 +37,6 @@ const Questions = () => {
                 return response.json();
             })
             .then((response) => {
-                setDisplayQuestions([])
                 setSortedQuestion(response);
                 setShowSorted(!showSorted);
             })

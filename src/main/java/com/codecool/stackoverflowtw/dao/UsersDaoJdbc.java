@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsersDaoJdbc implements UsersDAO {
 
@@ -61,6 +62,9 @@ public class UsersDaoJdbc implements UsersDAO {
 
     @Override
     public void addNewUser(NewUserDTO user) {
+        if(checkUserByUsername(user.username())){
+            throw new RuntimeException("Username is already in use");
+        }
         String sql = "INSERT INTO users (username, password, created) VALUES (?, ?, ?)";
 
         try (Connection connection = dbConnector.getConnection();
@@ -71,6 +75,29 @@ public class UsersDaoJdbc implements UsersDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean checkUserByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                resultSet.getInt("user_id");
+                resultSet.getString("username");
+                resultSet.getTimestamp("created").toLocalDateTime();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 
@@ -123,8 +150,8 @@ public class UsersDaoJdbc implements UsersDAO {
                     System.out.println("User is available");
                     return true;
                 } else {
-                    System.out.println("User is not logged in");
-                    return false;
+                    System.out.println("User");
+                    throw new RuntimeException("User does not exist");
                 }
             }
         } catch (SQLException e) {

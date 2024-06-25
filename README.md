@@ -26,6 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 <h3>Welcome to Stakkowerflov, a Q&A platform inspired by Stack Overflow but dedicated to all things related to furniture service. The name Stakkowerflov was chosen to give the project a unique Scandinavian flair, reminiscent of furniture names, to align with our focus on furniture service discussions. This was our first project at Codecool with Spring Boot, and we built most of it in a 5 day sprint, so its still under development. Enjoy!</h3>
+<h3>As part of the Stakkowerflov team, we worked collaboratively on different layers of the application. My specific contributions included developing the question and answer layers from the frontend to the database. I was responsible for ensuring that questions and answers were correctly handled and displayed in the user interface, efficiently processed in the backend, and accurately stored and retrieved from the database. Additionally, I implemented sorting and filtering features to enhance user experience, allowing users to easily find relevant questions and answers. Later on, I also took on the task of refactoring the code to improve its efficiency, readability, and maintainability.</h3>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributors
@@ -37,8 +38,10 @@
 
 ### Built With
 * [![React][React.js]][React-url]
-* ![Postgres]
-* ![Spring]
+* [![Node][NodeJs]][NodeJs-url]
+* [![Postgres][PostgreSQL]][Postgres-url]
+* [![SpringBoot][Spring]][SpringBoot-url]
+* [![Java][Java]][Java-url]
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
@@ -46,18 +49,13 @@
 ### Prerequisites:
 
 <p>Install the latest NPM</p>
-<p>Java Development Kit(JDK) installed</p>
+<p>Java Development Kit(JDK21) installed</p>
 <p>PostgreSQL database set up</p>
 
 <p>Frontend Setup: </p>
 <ul>
   <li>cd frontend</li>
   <li>npm install</li>
-</ul>
-
-<p>Backend Setup: </p>
-<ul>
-  <li>Configure the application.properties file with your PostgreSQL database credentials.</li>
 </ul>
 
 ### Installation
@@ -71,12 +69,13 @@
    ```
 3. Backend Setup:
 Configure the application.properties file with your PostgreSQL database credentials.
+![image](https://github.com/blankapsz/stackoverflow/assets/134206215/0ac224a5-e940-4379-b318-8170f0034a71)
 
-4. Create the PSQL table by running the query from table_creation.sql
+5. Create the PSQL table by running the query from table_creation.sql
 
-5. Run backend from your IDE
+6. Run backend
 
-6. Navigate to the stackoverflow_frontend folder and run this command:
+7. Navigate to the stackoverflow_frontend folder and run this command:
    ```sh
    npm run dev
    ```
@@ -105,5 +104,11 @@ Levente Hrabetz - grindlevi@gmail.com
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Postgres]:https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[PostgreSQL]:https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgres-url]:https://www.postgresql.org/
 [Spring]:https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white
+[SpringBoot-url]:https://spring.io/projects/spring-boot
+[NodeJs]:https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[NodeJs-url]:https://nodejs.org/en
+[Java]:https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
+[Java-url]:https://www.java.com/en/

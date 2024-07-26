@@ -31,11 +31,8 @@
 
 ## Contributors
 - [Blanka Pasztor](https://github.com/blankapsz)
-  <h3>Description coming soon...</h3>
 - [Brigi Jasz](https://github.com/igirb)
-  <h3>Description coming soon...</h3>
 - [Levente Hrabetz](https://github.com/grindlevi)
-  <h3>As part of the Stakkowerflov team, we worked collaboratively on different layers of the application. My specific contributions included developing the question and answer layers from the frontend to the database. I was responsible for ensuring that questions and answers were correctly handled and displayed in the user interface, efficiently processed in the backend, and accurately stored and retrieved from the database. Additionally, I implemented sorting and filtering features to enhance user experience, allowing users to easily find relevant questions and answers. Later on, I also took on the task of refactoring the code to improve its efficiency, readability, and maintainability.</h3>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
